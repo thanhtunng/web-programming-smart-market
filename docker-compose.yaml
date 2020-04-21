@@ -1,0 +1,24 @@
+version: "3.5"
+
+services:
+  app:
+    build:
+      context: apache
+    ports:
+      - "80:80"
+    volumes:
+      - "./app:/app"
+
+  postgres-db:
+    image: "postgres:9.6-alpine"
+    environment:
+      - "POSTGRES_DB=phpmvc"
+      - "POSTGRES_USER=phpmvc"
+      - "POSTGRES_PASSWORD=password"
+    ports:
+      - "5432:5432"
+    volumes:
+      - "pg-data:/var/lib/postgresql/data"
+
+volumes:
+  pg-data:
