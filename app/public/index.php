@@ -1,19 +1,18 @@
 <?php
 
-require '../Core/Router.php';
 
-$router = new Router();
+spl_autoload_register(function($class) {
+  $root = dirname(__DIR__);
+  $file = $root . '/' . str_replace('\\', '/', $class) . '.php';
+  if (is_readable($file)) {
+    require_once $root . '/' . str_replace('\\', '/', $class) . '.php';
+  }
+});
 
-$router->add("/^(?P<controller>[a-z-]+)\/(?P<action>[a-z-]+)$/");
+$router = new Core\Router();
 
-echo '<pre>';
-var_dump($router->getRoutes());
-echo '</pre>';
+$router->add('{controller}/{action}');
+$router->add('{controller}/{id:\d+}/{action}');
+$router->add('admin/{controller}/{action}', ['namespace' => 'Admin']);
 
-if ($router->match($_SERVER['QUERY_STRING'])) {
-  echo '<pre>';
-  var_dump($router->getParams());
-  echo '</pre>';
-} else {
-  echo 'No route found for url ' . $_SERVER['QUERY_STRING'];
-}
+$router->dispatch($_SERVER['QUERY_STRING']);
