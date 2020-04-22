@@ -1,9 +1,11 @@
 <?php
 namespace App\Controllers;
 
+use \Core\View;
+
 class Posts extends \Core\Controller {
     public function index() {
-        echo 'Hello from the index action in the Posts controller!';
+        View::renderTemplate("Posts/index.html");
     }
 
     public function addNew() {
