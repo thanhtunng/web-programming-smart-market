@@ -10,6 +10,7 @@ class Post extends \Core\Model {
             return $stmt->fetchAll();
         } catch (PDOException $e) {
             echo $e->getMessage();
+            return array();
         }
     }
 }
