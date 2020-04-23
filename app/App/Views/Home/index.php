@@ -13,6 +13,7 @@
         foreach ($colors as $color) {
             echo htmlspecialchars($color) . ' <br/>';
         }
+
     ?>
 </body>
 </html>
