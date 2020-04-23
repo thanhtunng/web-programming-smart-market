@@ -9,16 +9,18 @@ services:
     volumes:
       - "./app:/app"
 
-  postgres-db:
-    image: "postgres:9.6-alpine"
+  mysql8-db:
+    image: "mysql:8.0.19"
+    command: --default-authentication-plugin=mysql_native_password
     environment:
-      - "POSTGRES_DB=phpmvc"
-      - "POSTGRES_USER=phpmvc"
-      - "POSTGRES_PASSWORD=password"
+      - "MYSQL_DATABASE=smartstore"
+      - "MYSQL_USER=smartstore"
+      - "MYSQL_PASSWORD=smartstore"
+      - "MYSQL_ROOT_PASSWORD=smartstore"
     ports:
-      - "5432:5432"
+      - "3306:3306"
     volumes:
-      - "pg-data:/var/lib/postgresql/data"
+      - "mysql8-data:/var/lib/mysql"
 
 volumes:
-  pg-data:
+  mysql8-data:
